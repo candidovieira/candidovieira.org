@@ -1,0 +1,9 @@
+{{- /* "Como citar" no formato ABNT (NBR 6023) para documento on-line. */ -}}
+{{ $meses := slice "jan." "fev." "mar." "abr." "maio" "jun." "jul." "ago." "set." "out." "nov." "dez." }}
+{{ $d := .Date }}
+{{ $data := printf "%d %s %d" $d.Day (index $meses (sub (int $d.Month) 1)) $d.Year }}
+<section class="citar" aria-labelledby="citar-titulo">
+  <h2 class="citar__titulo" id="citar-titulo">Como citar</h2>
+  <p class="citar__ref" data-citar>{{ site.Params.autorABNT }}. <strong>{{ .Title }}</strong>. {{ with .Params.local }}{{ . }}, {{ end }}{{ $data }}. Disponível em: {{ .Permalink }}. Acesso em: <span data-acesso>{{ $data }}</span>.</p>
+  <button class="link-btn citar__copiar" type="button" data-copiar-citacao>Copiar referência</button>
+</section>

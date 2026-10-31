@@ -1,0 +1,36 @@
+# Glossário de termos. Use no texto com {{< termo "alinhamento" >}}
+# ou {{< termo "lei de Goodhart" "texto que aparece" >}}.
+- termo: alinhamento
+  definicao: Área que estuda como fazer sistemas de IA perseguirem os objetivos e valores que as pessoas realmente pretendem, e não apenas o que foi literalmente especificado.
+- termo: data poisoning
+  original: data poisoning
+  definicao: Ataque em que dados de treinamento são manipulados para induzir um modelo de aprendizado de máquina a aprender padrões incorretos ou a produzir resultados sob controle do atacante.
+- termo: deep learning
+  original: deep learning
+  definicao: Área do aprendizado de máquina que usa redes neurais com muitas camadas para aprender representações e padrões a partir de dados.
+- termo: deriva de modelo
+  original: model drift
+  definicao: Queda de desempenho de um modelo em produção porque os dados do mundo real mudaram em relação aos dados usados no treinamento.
+- termo: função objetivo
+  original: objective function
+  definicao: A medida que um sistema de aprendizado de máquina tenta maximizar ou minimizar durante o treinamento. É a forma como "pedimos" algo ao modelo.
+- termo: gestão de risco operacional
+  original: operational risk management
+  definicao: Processo de identificar, avaliar, monitorar e reduzir riscos de perdas causadas por falhas de processos, pessoas, sistemas ou eventos externos.
+- termo: provisão judicial
+  definicao: Valor estimado e reconhecido para cobrir uma possível obrigação financeira decorrente de uma ação judicial, considerando a probabilidade de perda e o valor esperado.
+- termo: justiça algorítmica
+  original: algorithmic fairness
+  definicao: Campo que estuda e mede se decisões automatizadas tratam grupos de pessoas de forma desigual ou discriminatória.
+- termo: lei de Goodhart
+  original: Goodhart's law
+  definicao: Quando uma medida vira meta, ela deixa de ser uma boa medida, porque as pessoas (ou os sistemas) passam a otimizar o número em vez do propósito.
+- termo: LLM
+  original: large language model
+  definicao: Modelo de linguagem de grande porte, treinado em enormes volumes de texto para prever a próxima palavra. É a base de assistentes conversacionais.
+- termo: observabilidade
+  original: observability
+  definicao: Capacidade de entender o que um sistema está fazendo em produção a partir dos sinais que ele emite, como métricas, registros e amostras de entradas e saídas.
+- termo: viés indutivo
+  original: inductive bias
+  definicao: O conjunto de suposições embutidas em um modelo que o fazem preferir certas generalizações a outras quando os dados, sozinhos, não bastam para decidir.

@@ -1,0 +1,16 @@
+# Lista de interesses apresentados na página Sobre. O conteúdo pode usar outros
+# interesses sem precisar alterar este arquivo.
+- nome: Alinhamento, justiça algorítmica e viés
+  descricao: A distância entre o que pedimos a um sistema e o que queremos dele, e quem fica de fora de sistemas que se dizem objetivos.
+- nome: IA e modelos de linguagem
+  descricao: O que esses sistemas conseguem fazer, onde falham e quando dá para confiar no resultado.
+- nome: Interpretabilidade e observabilidade
+  descricao: Entender por que um modelo decide o que decide e ver o que ele faz em produção.
+- nome: Aprendizado de máquina na prática
+  descricao: Construir, colocar em produção e manter modelos, dos dados à arquitetura.
+- nome: Tecnologia, instituições e sociedade
+  descricao: Como regras, governança e decisões automatizadas se moldam umas às outras.
+- nome: Desvios
+  descricao: O que não cabe nos outros interesses.
+- nome: Gestão de Risco em Instituições Financeiras
+  descricao: Como instituições financeiras identificam, medem e respondem a riscos.

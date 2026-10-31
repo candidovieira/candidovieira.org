@@ -1,0 +1,14 @@
+{{ define "main" }}
+<header class="page-head">
+  <h1 class="page-head__title">{{ .Title }}</h1>
+  {{ with .Description }}<p class="page-head__desc">{{ . }}</p>{{ end }}
+</header>
+<dl class="glossario">
+  {{ range sort hugo.Data.glossario "termo" }}
+    <div class="glossario__item" id="{{ .termo | anchorize }}">
+      <dt>{{ .termo | strings.FirstUpper }}{{ with .original }} <span class="glossario__orig" lang="en">{{ . }}</span>{{ end }}</dt>
+      <dd>{{ .definicao }}</dd>
+    </div>
+  {{ end }}
+</dl>
+{{ end }}

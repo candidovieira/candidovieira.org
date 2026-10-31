@@ -1,0 +1,5 @@
+{{/* {{< nota titulo="Atenção" >}}Texto em **Markdown**.{{< /nota >}} */}}
+<aside class="callout">
+  {{ with .Get "titulo" }}<p class="callout__title">{{ . }}</p>{{ end }}
+  {{ .Inner | .Page.RenderString (dict "display" "block") }}
+</aside>

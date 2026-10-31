@@ -1,0 +1,8 @@
+{{ $p := .Paginator }}
+{{ if gt $p.TotalPages 1 }}
+<nav class="pagination" aria-label="Paginação">
+  {{ with $p.Prev }}<a href="{{ .URL }}" rel="prev">Mais recentes</a>{{ else }}<span></span>{{ end }}
+  <span class="item__meta">Página {{ $p.PageNumber }} de {{ $p.TotalPages }}</span>
+  {{ with $p.Next }}<a href="{{ .URL }}" rel="next">Mais antigos</a>{{ else }}<span></span>{{ end }}
+</nav>
+{{ end }}

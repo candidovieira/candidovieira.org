@@ -1,0 +1,31 @@
+{{ define "main" }}
+<header class="page-head">
+  <h1 class="page-head__title">Interesses</h1>
+  <p class="page-head__desc">Os assuntos que atravessam o que escrevo.</p>
+</header>
+{{ $termos := .Data.Terms }}
+{{ $nomes := slice }}
+<ul class="term-list">
+  {{ range hugo.Data.interesses }}
+    {{ $nome := .nome }}
+    {{ $nomes = $nomes | append $nome }}
+    {{ $termo := "" }}
+    {{ range $termos }}{{ if eq .Page.LinkTitle $nome }}{{ $termo = . }}{{ end }}{{ end }}
+    <li>
+      <span>
+        {{ with $termo }}<a href="{{ .Page.RelPermalink }}">{{ $nome }}</a>{{ else }}<span class="term-vazio">{{ $nome }}</span>{{ end }}
+        <span class="term-desc">{{ .descricao }}</span>
+      </span>
+      <span class="count">{{ with $termo }}{{ .Count }} {{ cond (eq .Count 1) "texto" "textos" }}{{ else }}nenhum texto ainda{{ end }}</span>
+    </li>
+  {{ end }}
+  {{ range $termos }}
+    {{ if not (in $nomes .Page.LinkTitle) }}
+      <li>
+        <span><a href="{{ .Page.RelPermalink }}">{{ .Page.LinkTitle }}</a></span>
+        <span class="count">{{ .Count }} {{ cond (eq .Count 1) "texto" "textos" }}</span>
+      </li>
+    {{ end }}
+  {{ end }}
+</ul>
+{{ end }}

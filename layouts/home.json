@@ -1,0 +1,15 @@
+{{- $items := slice -}}
+{{- range where site.RegularPages "Section" "in" (slice "textos" "notas" "projetos") -}}
+  {{- $interesses := slice -}}
+  {{- range .GetTerms "interesses" }}{{ $interesses = $interesses | append .LinkTitle }}{{ end -}}
+  {{- $items = $items | append (dict
+    "titulo"    .Title
+    "url"       .RelPermalink
+    "data"      (.Date | time.Format ":date_medium")
+    "secao"     .Section
+    "descricao" .Description
+    "interesses" $interesses
+    "conteudo"  (.Plain | htmlUnescape)
+  ) -}}
+{{- end -}}
+{{- $items | jsonify -}}

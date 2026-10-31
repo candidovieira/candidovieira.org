@@ -1,0 +1,12 @@
+{{/* {{< figura src="/img/foto.jpg" alt="Descrição" legenda="Legenda opcional" >}} */}}
+{{ $src := .Get "src" }}
+{{ $img := or (.Page.Resources.Get $src) (resources.Get $src) }}
+<figure>
+  {{ with $img }}
+    {{ $w := cond (gt .Width 1400) (.Resize "1400x webp") . }}
+    <img src="{{ $w.RelPermalink }}" width="{{ $w.Width }}" height="{{ $w.Height }}" alt="{{ $.Get "alt" }}" loading="lazy" decoding="async">
+  {{ else }}
+    <img src="{{ $src }}" alt="{{ .Get "alt" }}" loading="lazy" decoding="async">
+  {{ end }}
+  {{ with .Get "legenda" }}<figcaption>{{ . | markdownify }}</figcaption>{{ end }}
+</figure>

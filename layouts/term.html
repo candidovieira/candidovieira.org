@@ -1,0 +1,12 @@
+{{ define "main" }}
+{{ $nome := .LinkTitle }}
+{{ $info := index (where hugo.Data.interesses "nome" $nome) 0 }}
+<header class="page-head">
+  <h1 class="page-head__title">{{ $nome }}</h1>
+  {{ with $info }}<p class="page-head__desc">{{ .descricao }}</p>{{ end }}
+</header>
+{{ $pager := .Paginate .Pages.ByDate.Reverse }}
+<ul class="lista">{{ range $pager.Pages }}{{ partial "item.html" . }}{{ end }}</ul>
+{{ partial "pagination.html" . }}
+<p class="mais-link"><a href="/interesses/">Todos os interesses</a></p>
+{{ end }}

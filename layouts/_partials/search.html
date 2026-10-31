@@ -1,0 +1,14 @@
+{{ with site.Home.OutputFormats.Get "json" }}
+<dialog class="search" id="busca" aria-label="Buscar no site" data-index="{{ .RelPermalink }}">
+  <div class="search__bar">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+    <label class="visually-hidden" for="busca-campo">Buscar</label>
+    <input class="search__input" id="busca-campo" type="search" placeholder="Buscar textos, notas e projetos…" autocomplete="off" enterkeyhint="search">
+    <button class="icon-btn" type="button" data-search-close aria-label="Fechar busca">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>
+    </button>
+  </div>
+  <ul class="search__results" aria-live="polite"></ul>
+  <p class="search__hint">Atalho: <kbd>/</kbd> abre a busca · <kbd>Esc</kbd> fecha</p>
+</dialog>
+{{ end }}

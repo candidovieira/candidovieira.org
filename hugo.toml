@@ -1,0 +1,92 @@
+baseURL                = "https://candidovieira.org/"
+title                  = "Candido Vieira"
+locale                 = "pt-BR"
+defaultContentLanguage = "pt"
+titleCaseStyle         = "firstupper"   # "Por que começar a escrever", não "Por Que Começar A Escrever"
+enableRobotsTXT        = true
+removePathAccents      = true   # /interesses/aprendizado-de-maquina/
+timeZone               = "America/Sao_Paulo"
+capitalizeListTitles   = false  # mantém "IA" e temas em minúsculas como escritos
+summaryLength          = 30
+enableGitInfo          = true   # data de revisão de cada texto vem do git
+
+[pagination]
+  pagerSize = 12
+
+# Só um tipo de taxonomia, com URL em português: /interesses/<interesse>/
+[taxonomies]
+  interesse = "interesses"
+
+[permalinks.page]
+  textos   = "/textos/:slug/"
+  notas    = "/notas/:slug/"
+  projetos = "/projetos/:slug/"
+
+[markup]
+  [markup.goldmark.renderer]
+    unsafe = false
+  [markup.goldmark.extensions.typographer]
+    leftDoubleQuote  = "&ldquo;"
+    rightDoubleQuote = "&rdquo;"
+  [markup.highlight]
+    noClasses = false          # cores vêm de assets/css/syntax.css
+  [markup.tableOfContents]
+    startLevel = 2
+    endLevel   = 3
+
+# JSON alimenta a busca local
+[outputs]
+  home    = ["html", "rss", "json"]
+  section = ["html", "rss"]
+  taxonomy = ["html"]
+  term    = ["html", "rss"]
+  page    = ["html"]
+
+[services.rss]
+  limit = 20
+
+[privacy]
+  [privacy.youtube]
+    privacyEnhanced = true
+  [privacy.vimeo]
+    enableDNT = true
+  [privacy.x]
+    enableDNT = true
+
+[params]
+  description = "Usando computadores para resolver problemas humanos. Escrevo sobre aprendizado de máquina, modelos de linguagem, sistemas de dados e o que é preciso para construir tecnologia digna de confiança."
+  author      = "Candido Vieira"
+  location    = "Aracaju"
+  email       = "hello@candidovieira.org"
+
+  autorABNT   = "VIEIRA, Candido"           # usado em "Como citar"
+  repo        = "https://github.com/candidovieira/candidovieira.org"
+
+  [params.home]
+    title = "Perguntas em aberto"
+    intro = "Escrevo para pensar sobre aprendizado de máquina, instituições e confiança. Cada texto tenta responder a uma destas perguntas."
+
+  [params.social]
+    github = "https://github.com/candidovieira"
+
+[menus]
+  [[menus.main]]
+    name       = "Textos"
+    pageRef    = "/textos"
+    weight     = 10
+  [[menus.main]]
+    name       = "Notas"
+    pageRef    = "/notas"
+    weight     = 20
+  [[menus.main]]
+    name       = "Projetos"
+    pageRef    = "/projetos"
+    weight     = 30
+  [[menus.main]]
+    name       = "Sobre"
+    pageRef    = "/sobre"
+    weight     = 40
+  [[menus.main]]
+    name       = "Agora"
+    pageRef    = "/agora"
+    weight     = 50

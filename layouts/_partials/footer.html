@@ -1,0 +1,10 @@
+<footer class="site-footer">
+  <p>© {{ now.Year }} {{ site.Params.author }}</p>
+  <ul class="footer-links">
+    {{ with site.Home.OutputFormats.Get "rss" }}<li><a href="{{ .RelPermalink }}">RSS</a></li>{{ end }}
+    {{ with site.Params.social.github }}<li><a href="{{ . }}" rel="me">GitHub</a></li>{{ end }}
+    {{ with site.Params.email }}<li><a href="mailto:{{ . }}">E-mail</a></li>{{ end }}
+    <li><a href="/interesses/">Interesses</a></li>
+    <li><a href="/glossario/">Glossário</a></li>
+  </ul>
+</footer>

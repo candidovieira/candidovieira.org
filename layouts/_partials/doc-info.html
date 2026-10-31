@@ -1,0 +1,19 @@
+{{- /* Ficha do texto na barra lateral (desktop): datas, estado, leitura, interesses, sumário. */ -}}
+{{ $revisado := gt (.Lastmod.Sub .Date).Hours 24 }}
+<section class="ficha" aria-label="Sobre este texto">
+  <dl class="ficha__dados">
+    <div><dt>Publicado</dt><dd><time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date | time.Format ":date_long" }}</time>{{ with .Params.local }}, {{ . }}{{ end }}</dd></div>
+    {{ if $revisado }}
+    <div><dt>Revisado</dt><dd><time datetime="{{ .Lastmod.Format "2006-01-02" }}">{{ .Lastmod | time.Format ":date_long" }}</time>{{ with site.Params.repo }}{{ with $.File }}<br><a href="{{ site.Params.repo }}/commits/main/content/{{ .Path }}">Ver o que mudou</a>{{ end }}{{ end }}</dd></div>
+    {{ end }}
+    {{ with .Params.estado }}<div><dt>Estado</dt><dd>{{ . | strings.FirstUpper }}</dd></div>{{ end }}
+    {{ if eq .Section "textos" }}<div><dt>Leitura</dt><dd>{{ .ReadingTime }} min</dd></div>{{ end }}
+    {{ with .GetTerms "interesses" }}<div><dt>{{ cond (eq (len .) 1) "Interesse" "Interesses" }}</dt><dd class="ficha__interesses">{{ range . }}<a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a>{{ end }}</dd></div>{{ end }}
+  </dl>
+  {{ if and .Params.toc (gt (len (findRE "<li>" .TableOfContents)) 1) }}
+  <nav class="ficha__toc" aria-label="Sumário" data-toc-links>
+    <p class="ficha__titulo">Sumário</p>
+    {{ .TableOfContents }}
+  </nav>
+  {{ end }}
+</section>

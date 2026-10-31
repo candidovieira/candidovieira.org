@@ -1,0 +1,15 @@
+{{- /*
+  Imagem de compartilhamento (1200×630) gerada no build:
+  base.png (painel marinho com o nome + filete) + data + título.
+*/ -}}
+{{- $base := resources.Get "og/base.png" -}}
+{{- $font := resources.Get "og/instrument-sans.ttf" -}}
+{{- $title := cond .IsHome site.Params.home.title .Title -}}
+{{- $len := len $title -}}
+{{- $size := cond (gt $len 50) 52 (cond (gt $len 28) 62 74) -}}
+{{- $filters := slice -}}
+{{- if and .IsPage (in (slice "textos" "notas" "projetos") .Section) -}}
+  {{- $filters = $filters | append (images.Text (.Date | time.Format ":date_long") (dict "font" $font "size" 26 "color" "#5B6479" "x" 360 "y" 92)) -}}
+{{- end -}}
+{{- $filters = $filters | append (images.Text $title (dict "font" $font "size" $size "color" "#15213A" "x" 360 "y" 190 "linespacing" (div $size 4))) -}}
+{{- return ($base | images.Filter $filters).Process "png" -}}

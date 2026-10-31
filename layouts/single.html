@@ -1,0 +1,67 @@
+{{ define "main" }}
+
+{{ $isPost := in (slice "textos" "notas" "projetos") .Section }}
+{{ $toc := and .Params.toc (gt (len (findRE "<li>" .TableOfContents)) 1) }}
+<article class="artigo{{ if $isPost }} artigo--post{{ end }}">
+  <header class="article__head">
+    {{ if $isPost }}
+    {{- /* no celular, a ficha fica aqui; no desktop, na barra lateral */ -}}
+    <p class="article__meta">
+      {{- with .Params.local }}{{ . }}, {{ end -}}
+      <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date | time.Format ":date_long" }}</time>
+      {{- if eq .Section "textos" }} · {{ .ReadingTime }} min{{ end -}}
+      {{- with .Params.estado }} · {{ . }}{{ end -}}
+    </p>
+    {{ if gt (.Lastmod.Sub .Date).Hours 24 }}
+    <p class="article__meta">Revisado em <time datetime="{{ .Lastmod.Format "2006-01-02" }}">{{ .Lastmod | time.Format ":date_long" }}</time>{{ with site.Params.repo }}{{ with $.File }} · <a href="{{ site.Params.repo }}/commits/main/content/{{ .Path }}">ver o que mudou</a>{{ end }}{{ end }}</p>
+    {{ end }}
+    {{ end }}
+    <h1 class="article__title">{{ .Title }}</h1>
+    {{ with .Description }}<p class="article__desc">{{ . }}</p>{{ end }}
+    {{ if eq .Section "projetos" }}
+      <p class="project-links">
+        {{ with .Params.status }}<span class="status">{{ . | strings.FirstUpper }}</span>{{ end }}
+        {{ with .Params.link }}<a href="{{ . }}">Ver o projeto</a>{{ end }}
+        {{ with .Params.repositorio }}<a href="{{ . }}">Código-fonte</a>{{ end }}
+      </p>
+    {{ end }}
+    {{ if $isPost }}<div class="article__interesses">{{ partial "tags.html" . }}</div>{{ end }}
+  </header>
+
+  {{ if eq .Params.estado "superado" }}
+  <aside class="aviso">
+    <p class="aviso__titulo">Mudei de ideia</p>
+    <p>Este texto registra o que eu pensava na época, mas não representa mais a minha opinião.{{ with .Params.superadoPor }} Veja <a href="{{ . }}">o texto que o substitui</a>.{{ end }}</p>
+  </aside>
+  {{ end }}
+  {{ with .Params.errata }}
+  <aside class="aviso aviso--errata">
+    <p class="aviso__titulo">Errata</p>
+    <ul>{{ range . }}<li><time datetime="{{ (time .data).Format "2006-01-02" }}">{{ time.Format ":date_long" (time .data) }}</time>: {{ .texto | markdownify }}</li>{{ end }}</ul>
+  </aside>
+  {{ end }}
+
+  {{ if $toc }}
+  <details class="toc" data-toc>
+    <summary>Sumário</summary>
+    {{ .TableOfContents }}
+  </details>
+  {{ end }}
+
+  <div class="prose">{{ .Content }}</div>
+
+  {{ if in (slice "textos" "notas") .Section }}{{ partial "citar.html" . }}{{ end }}
+
+  {{ if $isPost }}
+    {{ $pages := (where site.RegularPages "Section" .Section).ByDate }}
+    {{ $older := $pages.Prev . }}
+    {{ $newer := $pages.Next . }}
+    {{ if or $older $newer }}
+    <nav class="post-nav" aria-label="Outros textos">
+      {{ with $older }}<a href="{{ .RelPermalink }}" rel="prev"><span class="post-nav__label">Anterior</span><span class="post-nav__title">{{ .Title }}</span></a>{{ end }}
+      {{ with $newer }}<a class="post-nav__next" href="{{ .RelPermalink }}" rel="next"><span class="post-nav__label">Próximo</span><span class="post-nav__title">{{ .Title }}</span></a>{{ end }}
+    </nav>
+    {{ end }}
+  {{ end }}
+</article>
+{{ end }}

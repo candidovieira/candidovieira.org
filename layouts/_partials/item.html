@@ -1,0 +1,9 @@
+{{- /* Um item da lista: título, descrição e "data · interesses". */ -}}
+<li class="item">
+  <h2 class="item__title"><a href="{{ .RelPermalink }}">{{ .Title }}</a></h2>
+  {{ with .Description }}<p class="item__desc">{{ . }}</p>{{ end }}
+  <p class="item__meta">
+    <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date | time.Format ":date_long" }}</time>
+    {{- range .GetTerms "interesses" }} · {{ .LinkTitle }}{{ end -}}
+  </p>
+</li>

@@ -1,0 +1,5 @@
+{{ with .GetTerms "interesses" }}
+<ul class="interesses" aria-label="Interesses">
+  {{ range . }}<li><a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a></li>{{ end }}
+</ul>
+{{ end }}

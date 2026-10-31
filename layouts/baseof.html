@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="{{ site.Language.Locale | default "pt-BR" }}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  {{ $pageTitle := .Title }}
+  {{ if eq .Kind "taxonomy" }}{{ $pageTitle = "Interesses" }}{{ end }}
+  <title>{{ if .IsHome }}{{ site.Title }} | {{ site.Params.home.title }}{{ else }}{{ $pageTitle }} | {{ site.Title }}{{ end }}</title>
+
+  {{/* Aplica o tema antes de desenhar a página: evita o "piscar" */}}
+  <script>(function(){var t;try{t=localStorage.getItem("tema")}catch(e){}document.documentElement.dataset.theme=t||(matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light")})()</script>
+  <meta name="theme-color" content="#15213A" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0B1220" media="(prefers-color-scheme: dark)">
+
+  {{ partial "seo.html" . }}
+
+  <link rel="preload" href="/fonts/source-sans-3-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/fonts/instrument-sans-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+  {{ $css := slice (resources.Get "css/main.css") (resources.Get "css/syntax.css") | resources.Concat "css/site.css" | minify | fingerprint }}
+  <link rel="stylesheet" href="{{ $css.RelPermalink }}" integrity="{{ $css.Data.Integrity }}">
+
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  {{ with site.Home.OutputFormats.Get "rss" }}<link rel="alternate" type="application/rss+xml" href="{{ .Permalink }}" title="{{ site.Title }}">{{ end }}
+</head>
+<body>
+  <a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
+  <div class="layout">
+    {{ partial "header.html" . }}
+    <div class="conteudo">
+      <main id="conteudo">
+        {{ block "main" . }}{{ end }}
+      </main>
+      {{ partial "footer.html" . }}
+    </div>
+  </div>
+  {{ partial "search.html" . }}
+  {{ $js := resources.Get "js/main.js" | minify | fingerprint }}
+  <script src="{{ $js.RelPermalink }}" integrity="{{ $js.Data.Integrity }}" defer></script>
+</body>
+</html>

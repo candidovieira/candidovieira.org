@@ -1,0 +1,7 @@
+{{- /* {{< termo "viés indutivo" >}} ou {{< termo "lei de Goodhart" "texto exibido" >}} */ -}}
+{{- $nome := .Get 0 -}}
+{{- $texto := .Get 1 | default $nome -}}
+{{- $item := index (where hugo.Data.glossario "termo" $nome) 0 -}}
+{{- if not $item }}{{ errorf "Termo %q não está em data/glossario.yaml (%s)" $nome .Position }}{{ end -}}
+<a class="termo" href="/glossario/#{{ $nome | anchorize }}" data-definicao="{{ $item.definicao }}">{{ $texto }}</a>
+{{- /* sem espaço extra */ -}}

@@ -1,0 +1,9 @@
+{{- /* Lista interesses descritos em data/interesses.yaml. */ -}}
+<ul class="lista-interesses">
+  {{ range hugo.Data.interesses }}
+    {{ $nome := .nome }}
+    {{ $url := "" }}
+    {{ range site.Taxonomies.interesses }}{{ if eq .Page.LinkTitle $nome }}{{ $url = .Page.RelPermalink }}{{ end }}{{ end }}
+    <li><strong>{{ with $url }}<a href="{{ . }}">{{ $nome }}</a>{{ else }}{{ $nome }}{{ end }}</strong>{{ .descricao }}</li>
+  {{ end }}
+</ul>

@@ -1,0 +1,32 @@
+{{ define "main" }}
+{{- /* Home por perguntas: cada pergunta leva aos textos que tentam respondê-la.
+       Ordem: a pergunta do texto mais recente primeiro. */ -}}
+{{ $textos := (where site.RegularPages "Section" "textos").ByDate.Reverse }}
+{{ $perguntas := slice }}
+{{ range $textos }}{{ with .Params.pergunta }}{{ if not (in $perguntas .) }}{{ $perguntas = $perguntas | append . }}{{ end }}{{ end }}{{ end }}
+
+<header class="page-head home-head">
+  <h1 class="page-head__title">{{ site.Params.home.title }}</h1>
+  <p class="page-head__desc">{{ site.Params.home.intro }}</p>
+</header>
+
+{{ with $perguntas }}
+<ul class="perguntas">
+  {{ range . }}
+    {{ $p := . }}
+    {{ $resp := where $textos "Params.pergunta" $p }}
+    <li class="pergunta">
+      <p class="pergunta__q"><a href="{{ (index $resp 0).RelPermalink }}">{{ $p }}</a></p>
+      <ul class="pergunta__textos">
+        {{ range $resp }}
+          <li><a href="{{ .RelPermalink }}">{{ .Title }}</a> <span class="pergunta__data">{{ .Date | time.Format ":date_long" }}</span></li>
+        {{ end }}
+      </ul>
+    </li>
+  {{ end }}
+</ul>
+{{ else }}
+<p class="vazio">Os primeiros textos estão a caminho.</p>
+{{ end }}
+{{ with $textos }}<p class="mais-link"><a href="/textos/">Todos os textos, em ordem de publicação</a></p>{{ end }}
+{{ end }}
